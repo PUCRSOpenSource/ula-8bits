@@ -9,7 +9,7 @@ entity adder4 is
         cout    :out std_logic;
         s       :out std_logic_vector (3 downto 0)
     );
-end adder2;
+end adder4;
 
 architecture adder04 of adder4 is
     signal c: std_logic_vector(1 downto 0);
