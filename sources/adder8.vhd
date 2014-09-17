@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 entity adder8 is
     port
     (      
-        op        :in std_logic_vector (2 downto 0); --Operação
+        op        :in std_logic_vector (1 downto 0); --Operação
         a, b      :in std_logic_vector (7 downto 0);        
 
         carry_out :out std_logic; --Flag Carry out
@@ -21,12 +21,12 @@ architecture adder08 of adder8 is
     signal this_b:    std_logic_vector (7 downto 0);
 begin
     with op select
-        this_b  <=  "00000001"  when "011", --INC
-                    a           when "010", --MULT                    
-                    b           when "001", --SUM
+        this_b  <=  "00000001"  when "11", --INC
+                    a           when "10", --MULT                    
+                    b           when "01", --SUM
                     not b       when others;--SUB
     
-    carry_in  <= '1' when op="000" else '0';
+    carry_in  <= '1' when op="00" else '0';
 
     A0: entity work.Adder4
         port map( cin => carry_in , a => a(3 downto 0), b =>this_b(3 downto 0), cout => c(0), s=>s(3 downto 0));

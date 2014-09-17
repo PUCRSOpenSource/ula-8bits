@@ -9,11 +9,29 @@ architecture TB of TB is
     signal negative:     std_logic;
     signal zero:         std_logic;
     signal overflow:     std_logic;
-    signal arithmetic    std_logic_vector(7 downto 0);
-    signal logic         std_logic_vector(7 downto 0)
+    signal arithmetic:   std_logic_vector(7 downto 0);
+    signal logic:         std_logic_vector(7 downto 0);
 begin
+    process 
+    begin
+        a   <="00000000", "11011001" after 10ns, "11001000"after 20ns;
+        wait for 30ns;
+    end process;
+    process
+    begin
+
+        b   <="00000000", "1010011" after 5ns;
+        wait for 30ns;
+    end process;
+    process
+    begin
+
+        op  <="000", "001" after 30ns, "010" after 60ns, "011" after 90ns,
+              "100" after 120ns, "101" after 150ns, "110" after 180ns, "111" after 210ns;
+    end process;
+
     arthm: entity work.Adder8    
-           port map(op => op,                
+           port map(op => op(1 downto 0),                
                     a  => a,                          
                     b  => b, 
                     carry_out => carry_out, 
@@ -25,7 +43,7 @@ begin
     logc: entity work.Logic8
           port map( a  => a,
                     b  => b,
-                    op => op,
+                    op => op(1 downto 0),
                     s  => logic
                   );
     mux: entity work.Mux
@@ -33,11 +51,6 @@ begin
                   arithmetic => arithmetic,
                   logic      => logic,
                   output     => output
-              );
-          
-    a   <="00000", "11001" after 10ns, "00100"after 30ns;
-    b   <="00000", "10100" after 10ns;
-    op  <="000", "001" after 20ns, "010" after 30ns, "011" after 40ns,
-              "100" after 50ns, "101" after 60ns, "110" after 70ns, "111" after 80ns;
+              );         
     
 end tb;

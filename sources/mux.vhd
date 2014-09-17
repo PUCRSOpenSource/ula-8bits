@@ -6,12 +6,12 @@ entity mux is
         op                   :in  std_logic;
         arithmetic, logic    :in  std_logic_vector(7 downto 0);
 
-        output                  :out std_logic
+        output                  :out std_logic_vector(7 downto 0)
     );
 end mux;
 architecture mux of mux is
 begin
     with op select
-        output <= arithmetic    when op = '1'
-                  else          logic;
-end adder01;
+						output <= arithmetic   when '1',
+											  logic	when others;
+end mux;
