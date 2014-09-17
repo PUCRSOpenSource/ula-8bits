@@ -12,23 +12,22 @@ architecture TB of TB is
     signal arithmetic:   std_logic_vector(7 downto 0);
     signal logic:         std_logic_vector(7 downto 0);
 begin
+
     process 
     begin
-        a   <="00000000", "11011001" after 10ns, "11001000"after 20ns;
-        wait for 30ns;
+        a   <="00000000", "11011001" after 40ns;
+        wait for 80ns;
     end process;
+	 
     process
     begin
-
-        b   <="00000000", "1010011" after 5ns;
-        wait for 30ns;
+        b   <="00000000", "1010011" after 20ns;
+        wait for 40ns;
     end process;
-    process
-    begin
 
-        op  <="000", "001" after 30ns, "010" after 60ns, "011" after 90ns,
-              "100" after 120ns, "101" after 150ns, "110" after 180ns, "111" after 210ns;
-    end process;
+
+        op  <="000", "001" after 40ns, "010" after 80ns, "011" after 120ns,
+              "100" after 160ns, "101" after 200ns, "110" after 240ns, "111" after 280ns;
 
     arthm: entity work.Adder8    
            port map(op => op(1 downto 0),                

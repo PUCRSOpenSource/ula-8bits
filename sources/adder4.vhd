@@ -14,9 +14,9 @@ end adder4;
 architecture adder04 of adder4 is
     signal c: std_logic_vector(1 downto 0);
 begin
-    A0: entity work.Adder2
-        port map( cin => '0' , a => a(1 downto 0), b =>b(1 downto 0), cout => c(0), s=>s(1 downto 0));
-    A1: entity work.Adder2
-        port map( cin => '0' , a => a(3 downto 2), b =>b(3 downto 2), cout => c(1), s=>s(3 downto 2)); 
+    A2: entity work.Adder2
+        port map( cin => cin, a => a(1 downto 0), b =>b(1 downto 0), cout => c(0), s=>s(1 downto 0));
+    A3: entity work.Adder2
+        port map( cin => c(0) , a => a(3 downto 2), b =>b(3 downto 2), cout => c(1), s=>s(3 downto 2)); 
     cout <= c(1);
 end adder04;

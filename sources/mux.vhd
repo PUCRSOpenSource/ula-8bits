@@ -12,6 +12,6 @@ end mux;
 architecture mux of mux is
 begin
     with op select
-						output <= arithmetic   when '1',
+						output <= arithmetic   when '0',
 											  logic	when others;
 end mux;

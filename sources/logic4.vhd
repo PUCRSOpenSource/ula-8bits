@@ -11,8 +11,8 @@ end logic4;
 
 architecture logic04 of logic4 is
 begin
-    L0: entity work.Logic2
+    L2: entity work.Logic2
         port map(a => a(1 downto 0), b => b(1 downto 0), op => op(1 downto 0), s => s(1 downto 0));
-    L1: entity work.Logic2
+    L3: entity work.Logic2
         port map(a => a(3 downto 2), b => b(3 downto 2), op => op(1 downto 0), s => s(3 downto 2));
 end logic04;

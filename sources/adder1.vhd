@@ -14,4 +14,4 @@ architecture adder01 of adder1 is
 begin
     s     <= a xor b xor cin;
     cout  <= (a and b) or (cin and a) or (cin and b);
-end adder01;
+end adder01;,w

@@ -1,0 +1,608 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url,float}
+\usepackage{listings}
+
+\usepackage[T1]{fontenc}
+
+\graphicspath{{images/}}
+
+\sloppy
+
+\title{Ula de 8 Bits em VHDL}
+
+\author{Diego P. da Jornada, Francine B. Dos Santos}
+
+\address{Faculdade de Informática -- Pontifícia Universidade Católica do Rio Grande do Sul\\
+  (PUCRS)
+  \email{\{diego.jornada,francine.santos\}}@acad.pucrs.br
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{resumo}
+
+    Este reltório descreve uma forma de se fazer uma Unidade Lógica
+    Aritimética (ULA) de oito bits de forma hierárquica. Esta ULA deve realizar
+    oito operações.
+
+\end{resumo}
+
+
+\section{Introdução}
+
+No Escopo da disciplina de Organização e Arquitetura de Computadores o primeiro
+trabalho a ser realizado pode ser resumido assim: Utilizando a linguagem VHDL,
+usada para a descirção de hardware, deve ser implementado de forma hierárquica
+uma Unidade Lógica Aritimética(ULA), que deve realizar 8 operações.
+
+A implementação da ULA deve ser forma hierárquica, ou seja, inicialmente é
+elaborado o circuito que faça operações utilizando um bit, com isso circuito de
+dois utiliza o de um bit e assim sucessivamente.
+
+As operações são divididas em dois grupos que são: as operações de
+propósito lógico e as de propósito aritimético. Cada um dos grupos de
+implementar quatro funções básicas. Para operações foram definidas as seguintes
+operações: NOT, OR, XOR e AND\. Já as funções aritiméticas possuem o seguinte
+operadores: Subtração, Soma, Multiplicação por 2 e Incremento. 
+
+Abordamos o problema da seguine forma para cada tipo de operação criamos um
+circuito, ou seja, foi construídod um circuito para operações lógicas e outro
+para aritimética.
+
+\section{Diagramas de Bloco Hierárquicos}
+
+\subsection{Circuitos de um bit}
+
+\subsubsection{Lógico}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{logico_um_bit.png}
+\caption{Circuito Lógico de um bit}
+\end{figure}
+
+\subsubsection{Aritimético}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.5\textwidth]{somador_um_bit.png}
+\caption{Circuito Aritimético de um bit}
+\end{figure}
+
+\subsection{Circuitos de dois bit}
+
+\subsubsection{Lógico}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{logico_dois_bits.png}
+\caption{Circuito Lógico de dois bits}
+\end{figure}
+
+\subsubsection{Aritimético}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{somador_dois_bits.png}
+\caption{Circuito Aritimético de dois bits}
+\end{figure}
+
+\subsection{Circuitos de quatro bits}
+
+\subsubsection{Lógico}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{logico_quatro_bits.png}
+\caption{Circuito Lógico de quatro bits}
+\end{figure}
+
+\subsubsection{Aritimético}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{somador_quatro_bits.png}
+\caption{Circuito Aritimético de quatro bits}
+\end{figure}
+
+\subsection{Circuitos de oito bit}
+
+\subsubsection{Lógico}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{logico_oito_bits.png}
+\caption{Circuito Lógico de oito bits}
+\end{figure}
+
+\subsubsection{Aritimético}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{somador_oito_bits.png}
+\caption{Circuito Aritimético de oito bits}
+\end{figure}
+
+\section{Formas de Onda}
+
+O testbench gerado foi para que \emph{a} tendo o valor inicial fosse
+zero e mudasse para 11011001 aos 40ns e o ciclo de 80ns. A entrada
+\emph{b} tem o seguinte comportameto varia de zero para 1010011 aos 20
+ns com um ciclo de 40ns. A entrada que refere a operação varia a cada
+40ns para todas as possibilidades de 000 até 111.
+
+\subsection{Operações Aritméticas}
+
+\subsubsection{Subtração}
+
+Figura demontra que na subtração $0 - 0 = 0$, e com isso a flag dezero
+em um.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_sub.png}
+\caption{Forma de onda da operação de subtração}
+\end{figure}
+
+\subsubsection{Soma}
+
+Nesta figura podemos observar a flag de negativo quando a soma ocorre
+entre um numero negativo e zero. Também pode ser observado que ao
+se subtrair dois números negativos ocorreu overflow.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_sum.png}
+\caption{Forma de onda da operação de soma}
+\end{figure}
+
+\subsubsection{Multiplicação por 2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_mult.png}
+\caption{Forma de onda da operação de multiplicação por 2}
+\end{figure}
+
+\subsubsection{Incremento}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_inc.png}
+\caption{Forma de onda da operação de incremento da entrada A}
+\end{figure}
+
+\subsection{Operações Lógicas}
+Nas operações Lógicas as flags de negativo aparacem, posi o sistema é
+sequencial.
+\subsubsection{Complemento}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_not.png}
+\caption{Forma de onda da operação de complemento da entrada A}
+\end{figure}
+
+\subsubsection{Ou}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_or.png}
+\caption{Forma de onda da operação de OU lógico}
+\end{figure}
+
+\subsubsection{Ou Exclusivo}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_xor.png}
+\caption{Forma de onda da operação de OU exclusivo lógico}
+\end{figure}
+
+\subsubsection{E}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{ondas_and.png}
+\caption{Forma de onda da operação de E lógico}
+\end{figure}
+
+\section{VHDL's}
+
+Esta seção do relatório irá apresentar os código usados de cada
+circuito.
+
+\subsection{Circuitos de um bit}
+
+\subsubsection{Lógico}
+
+O circuito lógico de um bit foi constrído tendo uma das entrada a
+operação a qual ele vai realizar. O sinal \emph{output} foi usado
+apenas para realizar dar mais clareza ao código.
+\begin{lstlisting}
+entity logic1 is
+    port
+    (
+        a, b    :in   std_logic;
+        op      :in   std_logic_vector(1 downto 0);
+        s       :out std_logic
+    );
+end logic1;
+architecture logic01 of logic1 is
+    signal output: std_logic;
+begin
+    with op select
+        output  <= a  and b when  "11", --AND
+                   a  xor b when  "10", --XOR
+                   a  or  b when  "01", --OR
+                   not a    when  others;
+
+    s <= output;
+
+end logic01;
+\end{lstlisting}
+
+\subsubsection{Aritimético}
+
+\begin{lstlisting}
+entity adder1 is
+    port
+    (
+        cin     :in  std_logic;
+        a, b    :in  std_logic;
+
+        cout    :out std_logic;
+        s       :out std_logic
+    );
+end adder1;
+architecture adder01 of adder1 is
+begin
+    s     <= a xor b xor cin;
+    cout  <= (a and b) or (cin and a) or (cin and b);
+end adder01;
+\end{lstlisting}
+
+\subsection{Circuitos de dois bit}
+
+\subsubsection{Lógico}
+\begin{lstlisting}
+entity logic2 is
+    port
+    (
+        a, b    :in   std_logic_vector(1 downto 0);
+        op      :in   std_logic_vector(1 downto 0);
+        s       :out  std_logic_vector(1 downto 0)
+    );
+end logic2;
+architecture logic02 of logic2 is
+begin
+    L0: entity work.Logic1
+        port map(
+          a => a(0),
+          b => b(0),
+          op => op(1 downto 0),
+          s => s(0));
+    L1: entity work.Logic1
+        port map(
+          a => a(1),
+          b => b(1),
+          op => op(1 downto 0),
+end logic02;
+\end{lstlisting}
+\subsubsection{Aritimético}
+
+\begin{lstlisting}
+entity adder2 is
+    port
+    (      
+        cin     :in  std_logic;
+        a, b    :in  std_logic_vector(1 downto 0);
+
+        cout    :out std_logic;
+        s       :out std_logic_vector (1 downto 0)
+    );
+end adder2;
+
+architecture adder02 of adder2 is
+    signal c: std_logic_vector(1 downto 0);
+begin
+    A0: entity work.Adder1
+        port map(
+          cin => cin, 
+          a => a(0), 
+          b =>b(0), 
+          cout => c(0),
+          s=>s(0));
+    A1: entity work.Adder1
+        port map( 
+          cin => c(0),
+          a => a(1),
+          b =>b(1),
+          cout => c(1),
+          s=>s(1));
+    cout <= c(1);
+end adder02;
+\end{lstlisting}
+
+\subsection{Circuitos de quatro bits}
+
+\subsubsection{Lógico}
+
+\begin{lstlisting}
+entity logic4 is
+    port
+    (
+        a, b    :in   std_logic_vector(3 downto 0);
+        op      :in   std_logic_vector(1 downto 0);
+        s       :out  std_logic_vector(3 downto 0)
+    );
+end logic4;
+
+architecture logic04 of logic4 is
+begin
+    L2: entity work.Logic2
+        port map(
+          a => a(1 downto 0),
+          b => b(1 downto 0),
+          op => op(1 downto 0),
+          s => s(1 downto 0));
+    L3: entity work.Logic2
+        port map(
+          a => a(3 downto 2),
+          b => b(3 downto 2),
+          op => op(1 downto 0),
+          s => s(3 downto 2));
+end logic04;
+\end{lstlisting}
+
+\subsubsection{Aritimético}
+
+\begin{lstlisting}
+
+entity adder4 is
+    port
+    (      
+        cin     :in std_logic;
+        a, b    :in std_logic_vector (3 downto 0);
+
+        cout    :out std_logic;
+        s       :out std_logic_vector (3 downto 0)
+    );
+end adder4;
+
+architecture adder04 of adder4 is
+    signal c: std_logic_vector(1 downto 0);
+begin
+    A2: entity work.Adder2
+        port map( 
+          cin => cin,
+          a => a(1 downto 0),
+          b =>b(1 downto 0),
+          cout => c(0),
+          s=>s(1 downto 0));
+    A3: entity work.Adder2
+        port map(
+          cin => c(0),
+          a => a(3 downto 2),
+          b =>b(3 downto 2),
+          cout => c(1),
+          s=>s(3 downto 2)); 
+    cout <= c(1);
+end adder04;
+
+\end{lstlisting}
+
+\subsection{Circuitos de oito bit}
+
+\subsubsection{Lógico}
+
+\begin{lstlisting}
+entity logic8 is
+    port
+    (
+        a, b    :in   std_logic_vector(7 downto 0);
+        op      :in   std_logic_vector(1 downto 0);
+        s       :out  std_logic_vector(7 downto 0)
+    );
+end logic8;
+architecture logic08 of logic8 is
+begin
+    L4: entity work.Logic4
+        port map(
+          a => a(3 downto 0),
+          b => b(3 downto 0),
+          op => op(1 downto 0),
+          s => s(3 downto 0));
+    L5: entity work.Logic4
+        port map(
+          a => a(7 downto 4),
+          b => b(7 downto 4),
+          op => op(1 downto 0),
+          s => s(7 downto 4));
+end logic08;
+\end{lstlisting}
+
+\subsubsection{Aritimético}
+
+Para que fosse possível fazer as quatro operações aritiméticas
+utilizando o somador, ao identificar qual operações no operando
+\emph{b} ocorrem as mudançãs necessárias. Para fazer as mudanças foi
+utilizado um sinal que recebia as alterações da entrada b chamado de
+\emph{this\_b} e as mudanças são as seguintes:
+
+\begin{enumerate}
+    \item this\_b recebe o valor quando a operação for de incremento.
+    \item this\_b recebe o valor de a quando for a operaçõ de multiplicação
+        por 2.
+    \item this\_b recebe b quando for uma soma
+    \item this\_b recebe o complemnento de b, e o carry in recebe um
+        quando for um subtração.
+
+\end{enumerate}
+
+As os valores das flags forma atribuidos da seguinte forma:
+
+\begin{enumerate}
+    \item zero é um quando todos valores do sinal output tem o valor
+        zero.
+    \item carry\_out é um recebe o cout do circuito de 4 bits.
+    \item negative é um quando o bit mais significativo da entrada tme
+        valor um.
+    \item overflow é um quando ao compararmos os sinais das entradas
+        forem diferente do sinal da saida.
+\end{enumerate}
+
+\begin{lstlisting}
+
+entity adder8 is
+    port
+    (      
+        op        :in std_logic_vector (1 downto 0); --Operação
+        a, b      :in std_logic_vector (7 downto 0);        
+
+        carry_out :out std_logic; --Flag Carry out
+        negative  :out std_logic; --Flag Negativo
+        zero      :out std_logic; --Flag Zero
+        overflow  :out std_logic; --Flag Overflow
+        s         :out std_logic_vector (7 downto 0)
+    );
+end adder8;
+
+architecture adder08 of adder8 is
+    signal carry_in:  std_logic; 
+    signal c:         std_logic_vector (1 downto 0);
+    signal output:    std_logic_vector (7 downto 0);
+    signal this_b:    std_logic_vector (7 downto 0);
+begin
+    with op select
+        this_b  <=  "00000001"  when "11", --INC
+                    a           when "10", --MULT                    
+                    b           when "01", --SUM
+                    not b       when others;--SUB
+    
+    carry_in  <= '1' when op="00" else '0';
+
+    A4: entity work.Adder4
+        port map(
+          cin => carry_in,
+          a => a(3 downto 0),
+          b =>this_b(3 downto 0),
+          cout => c(0),
+          s=>output(3 downto 0));
+    A5: entity work.Adder4
+        port map(
+          cin => c(0),
+          a => a(7 downto 4),
+          b =>this_b(7 downto 4),
+          cout => c(1),
+          s=>output(7 downto 4));        
+		  
+    s         <= output;    
+    carry_out <= c(1);
+    zero      <= not(output(0) or output(1) or 
+                     output(2) or output(3) or
+                     output(4) or output(5) or
+                     output(6) or output(7));
+    negative  <= output(7);
+    overflow  <= (a(7) xor output(7)) and
+                 (b(7) xor output(7));
+end adder08;
+
+\end{lstlisting}
+
+\subsection{Multiplexador}
+Foi necessário criar um muliplexador para tratar e respota em função
+do tipo de operação que está sendo trabalhanda, para isso o
+multiplexador recebe uma entrada oriunda de uma operação aritimética e
+outra de uma operção lógica, também recebe um bit que indica o tipo de
+operação se zero a saída é o valor da função aritimética, senão é o
+valor da operação lógica.
+
+\begin{lstlisting}
+entity mux is
+    port
+    (
+        op                   :in  std_logic;
+        arithmetic, logic    :in  std_logic_vector(7 downto 0);
+
+        output               :out std_logic_vector(7 downto 0)
+    );
+end mux;
+architecture mux of mux is
+begin
+    with op select
+      output <= arithmetic  when '0',
+                logic	when others;
+end mux;
+\end{lstlisting}
+
+
+\subsection{Testbench}
+
+\begin{lstlisting}
+entity TB is
+    end TB;
+architecture TB of TB is
+    signal a, b, output: std_logic_vector(7 downto 0);
+    signal op :          std_logic_vector(2 downto 0);
+    signal carry_out:    std_logic;
+    signal negative:     std_logic;
+    signal zero:         std_logic;
+    signal overflow:     std_logic;
+    signal arithmetic:   std_logic_vector(7 downto 0);
+    signal logic:        std_logic_vector(7 downto 0);
+begin
+
+    process 
+    begin
+        a   <="00000000", "11011001" after 40ns;
+        wait for 80ns;
+    end process;
+	 
+    process
+    begin
+        b   <="00000000", "1010011" after 20ns;
+        wait for 40ns;
+    end process;
+
+
+        op  <="000", "001" after 40ns, "010" after 80ns,
+              "011" after 120ns, "100" after 160ns,
+              "101" after 200ns, "110" after 240ns,
+              "111" after 280ns;
+
+    arthm: entity work.Adder8    
+           port map(op => op(1 downto 0),                
+                    a  => a,                          
+                    b  => b, 
+                    carry_out => carry_out, 
+                    negative  => negative, 
+                    zero      => zero,
+                    overflow  => overflow,
+                    s         => arithmetic
+                   );
+    logc: entity work.Logic8
+          port map( a  => a,
+                    b  => b,
+                    op => op(1 downto 0),
+                    s  => logic
+                  );
+    mux: entity work.Mux
+         port map(op => op(2),
+                  arithmetic => arithmetic,
+                  logic      => logic,
+                  output     => output
+              );         
+    
+end tb;
+\end{lstlisting}
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}
